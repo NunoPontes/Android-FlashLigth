@@ -22,9 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private Button button, buttonScreen;
 
 
-
-
-
     @Override
     protected void onStop() {
         super.onStop();
