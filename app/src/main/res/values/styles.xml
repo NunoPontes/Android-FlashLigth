@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="t" parent="android:Theme">
+        <!-- Don't even create a view. Just set the background to white and show that for more speed. -->
+        <item name="android:windowBackground">@color/w</item>
+        <!-- The title bar wastes space. Nobody's going to look at it. Show more light. -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- The status bar wastes space. Nobody's going to look at it. Show more light. -->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
