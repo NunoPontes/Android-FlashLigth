@@ -39,3 +39,8 @@ When you choose the option to became a photosynthetic human being you can click 
 ##Known Problems:
 
 -If you have your screen brigthness to adapt automatically, it won't work properly
+
+
+##Credits:
+
+Myself and a mix of these two apps, https://github.com/jbutewicz/Flashlight-by-Joe  and this https://github.com/devesh/Flashlight
