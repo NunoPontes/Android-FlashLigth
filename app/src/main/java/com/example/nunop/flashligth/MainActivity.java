@@ -79,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("err", "Device has no flash!");
             //Starting a new Intent
             Intent nextScreen = new Intent(getApplicationContext(), Screen.class);
+            nextScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(nextScreen);
+            finish();
         }
         else{
             Log.i("info", "Device has flash!");
