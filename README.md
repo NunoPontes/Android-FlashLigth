@@ -35,6 +35,10 @@ When you choose the option to became a photosynthetic human being you can click 
 
 -Make it work in a single activity
 
+-Better design
+
+-Multiple Languages
+
 
 ##Known Problems:
 
