@@ -21,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button, buttonScreen;
 
+    public void putScreen(){
+        //Starting a new Intent
+        Intent nextScreen = new Intent(getApplicationContext(), Screen.class);
+        nextScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(nextScreen);
+        finish();
+    }
 
     @Override
     protected void onStop() {
@@ -56,34 +63,41 @@ public class MainActivity extends AppCompatActivity {
         buttonScreen = (Button) findViewById(R.id.btnScreen);
         Context context = this;
         PackageManager pm = context.getPackageManager();
-        try {
-            camera = Camera.open();
-        }
-        catch(Exception e)
-        {
-            Log.e("err", "Erro ao abrir a camâra!");
-            return;
-        }
-        final Camera.Parameters p = camera.getParameters();
+
+
 
         // if device support camera?
        // if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
          //   Log.e("err", "Device has no camera!");
          //   return;
         //}
-
+        try {
+            camera = Camera.open();
+        } catch (Exception e) {
+            Log.e("err", "Erro ao abrir a camâra1!");
+            putScreen();
+            return;
+        }
 
 
 
         if(hasFlash(camera)==false) {
             Log.e("err", "Device has no flash!");
-            //Starting a new Intent
-            Intent nextScreen = new Intent(getApplicationContext(), Screen.class);
-            nextScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(nextScreen);
-            finish();
+            putScreen();
         }
         else{
+
+
+            /*try {
+                camera = Camera.open();
+            } catch (Exception e) {
+                Log.e("err", "Erro ao abrir a camâra2!");
+                return;
+            }*/
+
+            final Camera.Parameters p = camera.getParameters();
+
+
             Log.i("info", "Device has flash!");
 
 
@@ -139,18 +153,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean hasFlash(Camera camera) {
+
+
         if (camera == null) {
+            camera.stopPreview();
             return false;
         }
 
         Camera.Parameters parameters = camera.getParameters();
 
         if (parameters.getFlashMode() == null) {
+            camera.stopPreview();
             return false;
         }
 
         List<String> supportedFlashModes = parameters.getSupportedFlashModes();
         if (supportedFlashModes == null || supportedFlashModes.isEmpty() || supportedFlashModes.size() == 1 && supportedFlashModes.get(0).equals(Camera.Parameters.FLASH_MODE_OFF)) {
+            camera.stopPreview();
             return false;
         }
 
