@@ -19,14 +19,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Flashlight"
+            android:text="@string/flashlight"
             android:id="@+id/btnFlashlight"
-            android:alpha="1"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:background="@null"/>
     </LinearLayout>
 
     <LinearLayout
@@ -41,14 +36,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Screen"
+            android:text="@string/screen"
             android:id="@+id/btnScreen"
-
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_x="-10dp"
-            android:layout_y="527dp" />
+            android:background="@null"/>
 
     </LinearLayout>
 

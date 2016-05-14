@@ -1,43 +1,33 @@
 package com.example.nunop.flashligth;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
 import java.util.List;
 
 public class MainActivity extends Activity {
 
     //flag to detect flash is on or off
-    private boolean isLighOn = false;
+    private boolean isLightOn = false;
 
     private Camera camera;
 
-    private Button button, buttonScreen;
 
-
-    public void putScreen(){
+    private void putScreen(){
 
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
 
         if(params.screenBrightness != 1) {
-            Log.i("info", "Screen is turn on!");
             params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
             window.setAttributes(params);
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
         else{
-            Log.i("info", "Screen is turn off!");
             params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
             window.setAttributes(params);
         }
@@ -53,7 +43,7 @@ public class MainActivity extends Activity {
             camera.stopPreview();
             camera.release();
             camera=null;
-            isLighOn = false;
+            isLightOn = false;
         }
     }
 
@@ -66,7 +56,7 @@ public class MainActivity extends Activity {
             camera.stopPreview();
             camera.release();
             camera=null;
-            isLighOn = false;
+            isLightOn = false;
         }
     }
 
@@ -75,10 +65,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.btnFlashlight);
-        buttonScreen = (Button) findViewById(R.id.btnScreen);
-        Context context = this;
-        PackageManager pm = context.getPackageManager();
+        Button button = (Button) findViewById(R.id.btnFlashlight);
+        Button buttonScreen = (Button) findViewById(R.id.btnScreen);
+
 
 
 
@@ -92,59 +81,48 @@ public class MainActivity extends Activity {
         try {
             camera = Camera.open();
         } catch (Exception e) {
-            Log.e("err", "Error opening the camera!");
             putScreen();
             return;
         }
 
 
         //Tries to see if the camera has flash, if it doesn't, the screen will turn to it's maximum brightness
-        if(hasFlash(camera)==false) {
-            Log.e("err", "Device has no flash!");
+        if(!hasFlash(camera)) {
             putScreen();
         }
         else{
             //The device has flash
             final Camera.Parameters p = camera.getParameters();
 
-
-            Log.i("info", "Device has flash!");
-
-
             button.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
 
-                    if (isLighOn) {
+                    if (isLightOn) {
                         //Turn off LED
                         if(camera==null)
                         {
                             camera = Camera.open();
-                            final Camera.Parameters p = camera.getParameters();
                         }
-                        Log.i("info", "torch is turn off!");
 
                         p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                         camera.setParameters(p);
                         camera.stopPreview();
-                        isLighOn = false;
+                        isLightOn = false;
 
                     } else {
                         //Turn on LED
                         if(camera==null)
                         {
                             camera = Camera.open();
-                            final Camera.Parameters p = camera.getParameters();
                         }
-
-                        Log.i("info", "torch is turn on!");
 
                         p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 
                         camera.setParameters(p);
                         camera.startPreview();
-                        isLighOn = true;
+                        isLightOn = true;
 
                     }
                 }
@@ -160,7 +138,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    public boolean hasFlash(Camera camera) {
+    private boolean hasFlash(Camera camera) {
         //boolean Method to determine if the device has a flash LED. Does=true;Doesn't=false
 
         if (camera == null) {

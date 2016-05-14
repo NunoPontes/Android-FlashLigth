@@ -1,4 +1,4 @@
-# Android-FlashLigth
+# Android-Flashlight
 An Android flashlight without extra permissions. Works with phones without flash (change brightness of the screen)
 
 ##Why I made this:
@@ -40,7 +40,7 @@ When you choose the option to became a photosynthetic human being you can click 
 
 ##Known Problems:
 
--If you have your screen brigthness to adapt automatically, it won't work properly
+-If you have your screen brightness to adapt automatically, it won't work properly
 
 
 ##Credits:
