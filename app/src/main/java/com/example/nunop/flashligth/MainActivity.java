@@ -1,5 +1,6 @@
 package com.example.nunop.flashligth;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -14,7 +15,7 @@ import android.widget.Button;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     //flag to detect flash is on or off
     private boolean isLighOn = false;
@@ -30,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
         WindowManager.LayoutParams params = window.getAttributes();
 
         if(params.screenBrightness != 1) {
-            Log.i("info", "Ligar ecrã!");
+            Log.i("info", "Screen is turn on!");
             params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
             window.setAttributes(params);
             window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
         else{
-            Log.i("info", "Desligar ecrã!");
+            Log.i("info", "Screen is turn off!");
             params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
             window.setAttributes(params);
         }
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             camera = Camera.open();
         } catch (Exception e) {
-            Log.e("err", "Erro ao abrir a camâra1!");
+            Log.e("err", "Error opening the camera!");
             putScreen();
             return;
         }

@@ -1,14 +1,5 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="t" parent="android:Theme">
+    <style name="theme" parent="android:Theme">
         <!-- Don't even create a view. Just set the background to white and show that for more speed. -->
         <item name="android:windowBackground">@color/w</item>
         <!-- The title bar wastes space. Nobody's going to look at it. Show more light. -->
@@ -16,5 +7,4 @@
         <!-- The status bar wastes space. Nobody's going to look at it. Show more light. -->
         <item name="android:windowFullscreen">true</item>
     </style>
-
 </resources>
