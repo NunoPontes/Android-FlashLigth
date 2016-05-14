@@ -81,6 +81,8 @@ public class MainActivity extends Activity {
         try {
             camera = Camera.open();
         } catch (Exception e) {
+            button.setVisibility(View.INVISIBLE);
+            buttonScreen.setVisibility(View.INVISIBLE);
             putScreen();
             return;
         }
@@ -88,6 +90,8 @@ public class MainActivity extends Activity {
 
         //Tries to see if the camera has flash, if it doesn't, the screen will turn to it's maximum brightness
         if(!hasFlash(camera)) {
+            button.setVisibility(View.INVISIBLE);
+            buttonScreen.setVisibility(View.INVISIBLE);
             putScreen();
         }
         else{
