@@ -1,13 +1,15 @@
 package com.example.nunop.flashligth;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import java.util.List;
@@ -21,16 +23,28 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button, buttonScreen;
 
+
     public void putScreen(){
-        //Starting a new Intent
-        Intent nextScreen = new Intent(getApplicationContext(), Screen.class);
-        nextScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(nextScreen);
-        finish();
+
+        Window window = getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+
+        if(params.screenBrightness != 1) {
+            Log.i("info", "Ligar ecrã!");
+            params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
+            window.setAttributes(params);
+            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
+        else{
+            Log.i("info", "Desligar ecrã!");
+            params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+            window.setAttributes(params);
+        }
     }
 
     @Override
     protected void onStop() {
+        //When the activity stops the LED is turned off
         super.onStop();
 
         if (camera != null) {
@@ -44,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause(){
+        //When the activity pauses the LED is turned off
         super.onPause();
         if (camera != null) {
             camera.setPreviewCallback(null);
@@ -71,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
          //   Log.e("err", "Device has no camera!");
          //   return;
         //}
+
+        //Tries to see if there's a camera, if there is not, the screen will turn to it's maximum brightness
         try {
             camera = Camera.open();
         } catch (Exception e) {
@@ -80,21 +97,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
+        //Tries to see if the camera has flash, if it doesn't, the screen will turn to it's maximum brightness
         if(hasFlash(camera)==false) {
             Log.e("err", "Device has no flash!");
             putScreen();
         }
         else{
-
-
-            /*try {
-                camera = Camera.open();
-            } catch (Exception e) {
-                Log.e("err", "Erro ao abrir a camâra2!");
-                return;
-            }*/
-
+            //The device has flash
             final Camera.Parameters p = camera.getParameters();
 
 
@@ -107,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View arg0) {
 
                     if (isLighOn) {
-
+                        //Turn off LED
                         if(camera==null)
                         {
                             camera = Camera.open();
@@ -121,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         isLighOn = false;
 
                     } else {
-
+                        //Turn on LED
                         if(camera==null)
                         {
                             camera = Camera.open();
@@ -141,19 +150,17 @@ public class MainActivity extends AppCompatActivity {
             });
 
             buttonScreen.setOnClickListener(new View.OnClickListener() {
-
+                //When you have LED but you want to put light on the screen
                 @Override
                 public void onClick(View arg0) {
-                    //Starting a new Intent
-                    Intent nextScreen = new Intent(getApplicationContext(), Screen.class);
-                    startActivity(nextScreen);
+                    putScreen();
                 }
             });
         }
     }
 
     public boolean hasFlash(Camera camera) {
-
+        //boolean Method to determine if the device has a flash LED. Does=true;Doesn't=false
 
         if (camera == null) {
             camera.stopPreview();

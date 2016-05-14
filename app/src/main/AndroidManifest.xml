@@ -24,9 +24,6 @@
         </activity>
 
 
-        <activity android:name=".Screen" android:screenOrientation="nosensor"
-            android:theme="@style/t">
-        </activity>
     </application>
 
 </manifest>
