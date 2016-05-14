@@ -1,6 +1,10 @@
 # Android-Flashlight
 An Android flashlight without extra permissions. Works with phones without flash (change brightness of the screen)
 
+#Now supports 14 languages
+
+-cs, de, es, fr, hi, it, ja, ko, nl, pl, pt, ru, zh, eng
+
 ##Why I made this:
 -I've seen so many apps that require to much permissions to work, and that's because they are gathering information about us, so I've decided I want to reduce that risk
 
@@ -34,8 +38,6 @@ When you choose the option to became a photosynthetic human being you can click 
 -Make it smaller
 
 -Better design
-
--Multiple Languages
 
 
 ##Known Problems:
