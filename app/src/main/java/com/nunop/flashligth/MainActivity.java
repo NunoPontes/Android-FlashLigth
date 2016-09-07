@@ -1,13 +1,19 @@
-package com.example.nunop.flashligth;
+package com.nunop.flashligth;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.example.nunop.flashligth.R;
+
 import java.util.List;
+
 
 public class MainActivity extends Activity {
 
@@ -18,6 +24,8 @@ public class MainActivity extends Activity {
 
 
     private void putScreen(){
+
+        //Função para tornar o ecrã branco e brilhante
 
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
@@ -145,6 +153,11 @@ public class MainActivity extends Activity {
     private boolean hasFlash(Camera camera) {
         //boolean Method to determine if the device has a flash LED. Does=true;Doesn't=false
 
+        Context context = this;
+
+        if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH))
+            return true;
+
         if (camera == null) {
             camera.stopPreview();
             return false;
@@ -165,4 +178,5 @@ public class MainActivity extends Activity {
 
         return true;
     }
+
 }
