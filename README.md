@@ -44,6 +44,8 @@ When you choose the option to became a photosynthetic human being you can click 
 
 -If you have your screen brightness to adapt automatically, it won't work properly
 
+-Doesn't work on random devices, like One Plus One (to be fixed)
+
 
 ##Credits:
 
