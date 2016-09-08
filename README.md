@@ -35,9 +35,9 @@ When you choose the option to became a photosynthetic human being you can click 
 
 ##To Do:
 
--Make it smaller
+-Put some icons, instead of text, maybe, to improve design
 
--Better design
+-Verify function parameters
 
 
 ##Known Problems:
