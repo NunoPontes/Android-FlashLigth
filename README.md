@@ -35,16 +35,15 @@ When you choose the option to became a photosynthetic human being you can click 
 
 ##To Do:
 
--Make it smaller
+-Put some icons, instead of text, maybe, to improve design
 
--Better design
+-Verify function parameters
 
 
 ##Known Problems:
 
 -If you have your screen brightness to adapt automatically, it won't work properly
 
--Doesn't work on random devices, like One Plus One (to be fixed)
 
 
 ##Credits:
