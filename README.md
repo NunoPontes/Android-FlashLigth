@@ -37,7 +37,6 @@ When you choose the option to became a photosynthetic human being you can click 
 
 -Put some icons, instead of text, maybe, to improve design
 
--Verify function parameters
 
 
 ##Known Problems:
