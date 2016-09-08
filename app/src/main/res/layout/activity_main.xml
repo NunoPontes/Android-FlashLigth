@@ -14,15 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_above="@+id/secondView">
+        android:layout_above="@+id/secondView"
+        android:weightSum="1">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/app_name"
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/btnFlashlight"
-            android:background="@null"/>
-
+            android:src="@drawable/flashlight"
+            android:layout_weight="1"
+            android:background="@null" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,14 +35,14 @@
         android:layout_alignRight="@+id/firstLayout"
         android:layout_alignEnd="@+id/firstLayout">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/screen"
+
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/btnScreen"
-            android:background="@null"/>
-
-
+            android:background="@null"
+            android:src="@drawable/screen"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <View

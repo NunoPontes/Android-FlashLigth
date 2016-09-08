@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.nunop.flashligth.R;
 
@@ -35,8 +35,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-        Button button = (Button) findViewById(R.id.btnFlashlight);
-        Button buttonScreen = (Button) findViewById(R.id.btnScreen);
+        ImageButton button = (ImageButton) findViewById(R.id.btnFlashlight);
+        ImageButton buttonScreen = (ImageButton) findViewById(R.id.btnScreen);
 
 
         button.setOnClickListener(new View.OnClickListener() {
