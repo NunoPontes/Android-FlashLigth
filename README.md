@@ -28,12 +28,6 @@ This app work on phones with and without flash, so obviously when the device doe
 
 
 
-##To Do:
-
--Put some icons, instead of text, maybe, to improve design
-
-
-
 ##Known Problems:
 
 -If you have your screen brightness to adapt automatically, it won't work properly
