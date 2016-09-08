@@ -2,9 +2,7 @@ package com.nunop.flashligth;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -20,8 +18,6 @@ import com.example.nunop.flashligth.R;
 
 import java.util.List;
 
-//TODO: implementar o codigo dos motorolas
-//TODO: mudar as strings para os icones
 
 public class MainActivity extends Activity {
 
@@ -166,7 +162,6 @@ public class MainActivity extends Activity {
 
     private void checkPermissions(String permission)
     {
-        //TODO: Fazer verificação da string recebida
         //Function that receives a string and it verifies if we have that permission
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), permission);
 
@@ -184,7 +179,6 @@ public class MainActivity extends Activity {
 
     private void getPermissions(String permission)
     {
-        //TODO: Fazer verificação da string recebida
         //Function that receives a permission and asks for it
         ActivityCompat.requestPermissions(this, new String[]{permission}, MY_PERMISSIONS);
     }
@@ -237,6 +231,7 @@ public class MainActivity extends Activity {
 
         camera.setParameters(p);
         camera.startPreview();
+        turnMotorolaOn();
         isLightOn = true;
     }
 
@@ -253,6 +248,7 @@ public class MainActivity extends Activity {
         p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         camera.setParameters(p);
         camera.stopPreview();
+        turnMotorolaOff();
         isLightOn = false;
     }
 
@@ -280,4 +276,29 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+
+    // Turns the LED on for some Motorola phones.
+    static void turnMotorolaOn() {
+        DroidLED led;
+        try {
+            led = new DroidLED();
+            led.enable(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Turns the LED off for some Motorola phones.
+    static void turnMotorolaOff() {
+        DroidLED led;
+        try {
+            led = new DroidLED();
+            led.enable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
