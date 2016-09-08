@@ -20,37 +20,50 @@ import com.example.nunop.flashligth.R;
 
 import java.util.List;
 
+//TODO: implementar o codigo dos motorolas
+//TODO: mudar as strings para os icones
 
 public class MainActivity extends Activity {
 
     //flag to detect flash is on or off
     private boolean isLightOn = false;
 
-    private boolean firstExecution;  //variavel para saber se é a 1ª execução ou não, necessario para atualizar o ecrã apos serem dadas as permissões
-
     private Camera camera;
 
     private static final int MY_PERMISSIONS = 1;
-
-
-    private Button button, buttonScreen;
+    private Camera.Parameters p;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firstExecution = true;
 
-        button = (Button) findViewById(R.id.btnFlashlight);
-        buttonScreen = (Button) findViewById(R.id.btnScreen);
+        Button button = (Button) findViewById(R.id.btnFlashlight);
+        Button buttonScreen = (Button) findViewById(R.id.btnScreen);
 
 
-        // if device support camera?
-       // if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-         //   Log.e("err", "Device has no camera!");
-         //   return;
-        //}
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if(!isLightOn) {
+                    //Turn on LED
+                    turnOn(p);
+                }
+                else {
+                    turnOff(p);
+                }
+            }
+        });
+
+        buttonScreen.setOnClickListener(new View.OnClickListener() {
+            //When you have LED but you want to put light on the screen
+            @Override
+            public void onClick(View arg0) {
+                putScreen();
+            }
+        });
 
         //Tries to see if there's a camera, if there is not, the screen will turn to it's maximum brightness
         try {
@@ -65,7 +78,6 @@ public class MainActivity extends Activity {
             return;
         }
 
-
         //Tries to see if the camera has flash, if it doesn't, the screen will turn to it's maximum brightness
         if(!hasFlash(camera)) {
             button.setVisibility(View.INVISIBLE);
@@ -74,94 +86,30 @@ public class MainActivity extends Activity {
         }
         else{
             //The device has flash
-            final Camera.Parameters p = camera.getParameters();
+            p = camera.getParameters();
 
-            button.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    if (isLightOn) {
-                        //Turn off LED
-                        if(camera==null)
-                        {
-                            camera = Camera.open();
-                        }
-
-                        p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                        camera.setParameters(p);
-                        camera.stopPreview();
-                        isLightOn = false;
-
-                    } else {
-                        //Turn on LED
-                        if(camera==null)
-                        {
-                            camera = Camera.open();
-                        }
-
-                        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-
-                        camera.setParameters(p);
-                        camera.startPreview();
-                        isLightOn = true;
-
-                    }
-                }
-            });
-
-            buttonScreen.setOnClickListener(new View.OnClickListener() {
-                //When you have LED but you want to put light on the screen
-                @Override
-                public void onClick(View arg0) {
-                    putScreen();
-                }
-            });
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        releaseCameraAndPreview();
-        checkPermissions(Manifest.permission.CAMERA);
-        checkPermissions(Manifest.permission.FLASHLIGHT);
-    }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        releaseCameraAndPreview();
+    protected void onResume() {
+        //Check permissions, just to see if there is any change
+        super.onResume();
+
         checkPermissions(Manifest.permission.CAMERA);
         checkPermissions(Manifest.permission.FLASHLIGHT);
+
     }
+
 
     @Override
     protected void onStop() {
         //When the activity stops the LED is turned off
         super.onStop();
-
-        if (camera != null) {
-            camera.setPreviewCallback(null);
-            camera.stopPreview();
-            camera.release();
-            camera=null;
-            isLightOn = false;
-        }
+        turnOffCamera();
     }
 
-    @Override
-    protected void onPause(){
-        //When the activity pauses the LED is turned off
-        super.onPause();
-        if (camera != null) {
-            camera.setPreviewCallback(null);
-            camera.stopPreview();
-            camera.release();
-            camera=null;
-            isLightOn = false;
-        }
-    }
 
     private boolean hasFlash(Camera camera) {
         //boolean Method to determine if the device has a flash LED. Does=true;Doesn't=false
@@ -193,8 +141,7 @@ public class MainActivity extends Activity {
     }
 
     private void putScreen(){
-
-        //Função para tornar o ecrã branco e brilhante
+        //Function to turn the screen white and shiny
 
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
@@ -210,12 +157,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void unPutScreen()
-    {
-        button.setVisibility(View.VISIBLE);
-        buttonScreen.setVisibility(View.VISIBLE);
-    }
-
     private void releaseCameraAndPreview() {
         if (camera != null) {
             camera.release();
@@ -223,10 +164,10 @@ public class MainActivity extends Activity {
         }
     }
 
-
-
     private void checkPermissions(String permission)
     {
+        //TODO: Fazer verificação da string recebida
+        //Function that receives a string and it verifies if we have that permission
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), permission);
 
         switch (permissionCheck)
@@ -237,17 +178,20 @@ public class MainActivity extends Activity {
                 getPermissions(permission);
                 break;
             default:
-                return;
+                break;
         }
     }
 
     private void getPermissions(String permission)
     {
+        //TODO: Fazer verificação da string recebida
+        //Function that receives a permission and asks for it
         ActivityCompat.requestPermissions(this, new String[]{permission}, MY_PERMISSIONS);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        //Function called when getPermissions() is called more specifically requestPermissions() and it sends, on this case the int MY_PERMISSIONS
         switch (requestCode) {
             case MY_PERMISSIONS:
             {
@@ -272,7 +216,7 @@ public class MainActivity extends Activity {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
-                return;
+                break;
             }
 
             // other 'case' lines to check for other
@@ -280,35 +224,60 @@ public class MainActivity extends Activity {
         }
     }
 
-
-    public void alertDialog(String title, String message)
+    private void turnOn(Camera.Parameters p)
     {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        //Function that receives camera parameters
+        //Turn on LED
+        if(camera==null)
+        {
+            camera = Camera.open();
+        }
 
-        // Setting Dialog Title
-        alertDialog.setTitle(title);
+        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 
-        // Setting Dialog Message
-        alertDialog.setMessage(message);
+        camera.setParameters(p);
+        camera.startPreview();
+        isLightOn = true;
+    }
 
+    private void turnOff(Camera.Parameters p)
+    {
+        //Function that receives camera parameters
+        //Turn off LED
+        if(camera==null)
+        {
+            camera = Camera.open();
+            p = camera.getParameters();
+        }
 
-        // Setting Positive "YES" Button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-                // Write your code here to invoke OK event
+        p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        camera.setParameters(p);
+        camera.stopPreview();
+        isLightOn = false;
+    }
+
+    private void turnOffCamera()
+    {
+        //Function to turn the camera and the flash off
+
+        if (camera != null) {
+            if(!hasFlash(camera))
+            {
+                //if it doesnt have flash you cant setFlashMode
+                camera.setPreviewCallback(null);
+                camera.stopPreview();
+                camera.release();
+                camera = null;
             }
-        });
-
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-                // Write your code here to invoke OK event
-                checkPermissions(Manifest.permission.CAMERA);
-                checkPermissions(Manifest.permission.FLASHLIGHT);
+            else {
+                p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                camera.setParameters(p);
+                camera.setPreviewCallback(null);
+                camera.stopPreview();
+                camera.release();
+                camera = null;
+                isLightOn = false;
             }
-        });
-
-        // Showing Alert Message
-        alertDialog.show();
+        }
     }
 }
