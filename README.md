@@ -4,7 +4,8 @@ An Android flashlight without extra permissions. Works with phones without flash
 ![alt text](app/Screenshots/device-2016-09-08-165908.png "Flashlight")
 
 
-#Now supports 14 languages
+#Now supports 14 languages (CURRENTLY NOT USED)
+##Note: Not used, but I'll keep it for future reference
 
 -cs, de, es, fr, hi, it, ja, ko, nl, pl, pt, ru, zh, eng
 
