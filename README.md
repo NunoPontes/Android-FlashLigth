@@ -1,5 +1,6 @@
 # Android-Flashlight
 An Android flashlight without extra permissions. Works with phones without flash (change brightness of the screen)
+![alt text](app/Screenshots/device-2016-09-08-165908_framed.png "Description goes here")
 
 #Now supports 14 languages
 
