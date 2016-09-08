@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnFlashlight"
-            android:src="@drawable/flashlight"
+            android:src="@drawable/flashlight_black"
             android:layout_weight="1"
             android:background="@null" />
     </LinearLayout>
