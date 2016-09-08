@@ -27,11 +27,6 @@ This app work on phones with and without flash, so obviously when the device doe
   -You can turn your screen brightness to it's maximum. (It'll glow so hard you'll became a photosynthetic human being)
 
 
-##Notes:
-
-When you choose the option to became a photosynthetic human being you can click the power button to turn the screen off and on, even if you have a lock screen.
-
-
 
 ##To Do:
 
