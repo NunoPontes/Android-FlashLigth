@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         ImageButton button = (ImageButton) findViewById(R.id.btnFlashlight);
         ImageButton buttonScreen = (ImageButton) findViewById(R.id.btnScreen);
