@@ -41,3 +41,8 @@ This app work on phones with and without flash, so obviously when the device doe
 ##Credits:
 
 Myself and a mix of these two apps, https://github.com/jbutewicz/Flashlight-by-Joe  and this https://github.com/devesh/Flashlight
+
+
+Get on the store
+
+https://play.google.com/store/apps/details?id=com.nunop.flashligth
