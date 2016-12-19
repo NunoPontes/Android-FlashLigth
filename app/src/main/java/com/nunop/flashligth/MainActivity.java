@@ -18,14 +18,17 @@ import android.widget.ImageButton;
 
 import java.util.List;
 
+import static android.R.attr.button;
+
 
 public class MainActivity extends Activity {
 
     //flag to detect flash is on or off
     private boolean isLightOn = false;
+    private boolean isScreenOn = false;
 
     private Camera camera;
-
+    private ImageButton button, buttonScreen;
     private static final int MY_PERMISSIONS = 1;
     private Camera.Parameters p;
 
@@ -35,8 +38,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        ImageButton button = (ImageButton) findViewById(R.id.btnFlashlight);
-        ImageButton buttonScreen = (ImageButton) findViewById(R.id.btnScreen);
+        button = (ImageButton) findViewById(R.id.btnFlashlight);
+        buttonScreen = (ImageButton) findViewById(R.id.btnScreen);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +60,20 @@ public class MainActivity extends Activity {
             //When you have LED but you want to put light on the screen
             @Override
             public void onClick(View arg0) {
-                putScreen();
+
+                if(isScreenOn)
+                {
+                    putScreen();
+                    isScreenOn=false;
+                    buttonScreen.setImageResource(R.drawable.screen_off);
+                }
+                else
+                {
+                    putScreen();
+                    isScreenOn=true;
+                    buttonScreen.setImageResource(R.drawable.screen);
+                }
+
             }
         });
 
@@ -233,6 +249,7 @@ public class MainActivity extends Activity {
         camera.startPreview();
         turnMotorolaOn();
         isLightOn = true;
+        button.setImageResource(R.drawable.flashlight_black);
     }
 
     private void turnOff(Camera.Parameters p)
@@ -250,6 +267,7 @@ public class MainActivity extends Activity {
         camera.stopPreview();
         turnMotorolaOff();
         isLightOn = false;
+        button.setImageResource(R.drawable.flashlight_black_nolight);
     }
 
     private void turnOffCamera()
